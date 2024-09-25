@@ -422,6 +422,17 @@ add_subdirectory(third_party)
 set(BUILD_SHARED_LIBS_SAVED ${BUILD_SHARED_LIBS})
 set(BUILD_SHARED_LIBS 0)
 
+# Tint wrapper for slang-tests
+add_library("slang-tint" SHARED)
+target_sources("slang-tint" PUBLIC "src/slang-tint/slang-tint.h")
+target_sources(
+  "slang-tint"
+  PRIVATE
+  "src/slang-tint/slang-tint.cpp"
+  "src/slang-tint/slang-tint-events.cpp"
+)
+target_link_libraries("slang-tint" PRIVATE tint_api)
+
 add_subdirectory(src/utils)
 
 # Only build Tint when we are not building under Emscripten.
